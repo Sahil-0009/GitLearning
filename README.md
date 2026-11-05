@@ -231,3 +231,48 @@ Typical industry workflow:
 **Remember:**
 
 `Create Branch → Develop → Commit → Merge → Push`
+
+
+
+## Git Lesson 3 – Remote Repositories
+
+### 1. What is a Remote Repository?
+A remote repository is a Git repository hosted on platforms like GitHub, allowing developers to collaborate and share code.
+
+### 2. Important Git Commands
+
+| Command | Purpose |
+|---|---|
+| `git remote -v` | View remote repositories |
+| `git remote add origin URL` | Connect GitHub repository |
+| `git remote remove origin` | Remove remote |
+| `git clone URL` | Copy a remote repository |
+| `git push origin main` | Upload commits to GitHub |
+| `git fetch origin` | Download remote updates without merging |
+| `git pull origin main` | Fetch and integrate remote updates |
+| `git remote set-url origin URL` | Change remote URL |
+
+### 3. Important Terms
+- **Origin:** Default name of a remote repository.
+- **Main:** Default branch name in many repositories.
+- **Push:** Upload local commits to GitHub.
+- **Pull:** Download and integrate remote changes.
+- **Fetch:** Download remote changes without integrating them.
+- **Clone:** Copy an existing remote repository to your computer.
+
+### 4. Basic GitHub Workflow
+
+```bash
+git add .
+git commit -m "Updated code"
+git push origin main
+```
+
+### 5. Common Git Errors
+- `remote origin already exists`: A remote named origin is already configured.
+- `non-fast-forward`: Remote branch has commits missing locally.
+- `repository not found`: Check the repository URL and access permissions.
+
+### Key Takeaway
+Git manages version history, while GitHub hosts remote repositories. Push, pull, fetch, and clone help developers collaborate and synchronize code.
+
