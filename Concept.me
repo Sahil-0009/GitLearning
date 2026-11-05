@@ -2,3 +2,268 @@ Remember this simple difference:
 - root = Where your project starts (top-level folder).
 - origin = Where your remote repository is identified.
 - main = Which branch you are working with.
+
+1. What is root in Git?
+root generally refers to the root directory of your Git repository.
+
+It is the main folder of your project where the .git directory is located.
+
+For example, imagine your project structure:
+CodeSheet-Pro/          ← Root directory
+│
+├── .git/               ← Git configuration and history
+├── src/
+│   ├── App.java
+│   └── Main.java
+│
+├── README.md
+└── .gitignore
+
+
+Here, CodeSheet-Pro is the root directory.
+
+How to find the root directory?
+git rev-parse --show-toplevel
+This command displays the root directory of your Git repository.
+
+
+2. What is origin in Git?
+origin is the default name (alias) of a remote repository.
+
+In simple words:
+- Local repository = Project on your computer.
+- Remote repository = Project hosted on GitHub.
+- origin = Nickname given to that remote repository.
+Example:
+Suppose your GitHub repository URL is:
+https://github.com/username/CodeSheet-Pro.git
+
+When you connect your local project to GitHub:
+git remote add origin https://github.com/username/CodeSheet-Pro.git
+
+Here:
+- git remote add → Adds a remote repository.
+- origin → Name of the remote repository.
+- URL → Actual GitHub repository address.
+How to check origin?
+git remote -v
+
+Example output:
+origin  https://github.com/username/CodeSheet-Pro.git (fetch)
+origin  https://github.com/username/CodeSheet-Pro.git (push)
+
+
+You can also use another name instead of origin, but origin is the convention.
+
+
+3. What is main in Git?
+main is commonly the default branch name of a Git repository.
+
+A branch is like a separate line of development where you can work on your project.
+
+Example:
+             main
+              |
+              A
+              |
+              B
+             / \
+            C   D
+           /     \
+       feature   bugfix
+
+
+Here:
+- main → Main development branch.
+- feature → Branch for developing a new feature.
+- bugfix → Branch for fixing bugs.
+
+
+
+Git Lesson: Understanding origin/main, main, HEAD, and HEAD~1
+These four terms are very important in Git. They help you understand where your code is, which branch you are working on, and how to navigate through previous commits.
+
+Let's learn them step by step, assuming you are a beginner.
+1. First, understand the Git repository structure
+Imagine you have a project called CodeSheet-Pro.
+
+You have uploaded it to GitHub and are working on it locally.
+
+There are two repositories:
+- Local repository: Your project on your computer.
+- Remote repository: Your project on GitHub.
+Each repository can have its own branches and commit history.
+Local Git
+Your PC
+main
+
+Your local branch
+
+
+Remote Git
+GitHub
+origin/main
+
+Remote-tracking branch
+
+
+
+These branches can point to different commits.
+
+2. What is main?
+main is your local branch.
+
+It represents the development history of your local main branch.
+
+For example:
+git branch
+
+
+Output:
+* main
+  feature
+  bugfix
+
+
+The * indicates that you are currently working on main.
+
+Suppose your commit history looks like this:
+A → B → C → D
+            ↑
+           main
+
+
+Here, main points to commit D, the latest commit on that branch.
+
+Remember: main is a branch name, not a special Git command.
+3. What is origin/main?
+This is where many beginners get confused.
+
+origin/main is a remote-tracking branch.
+
+Let's break the name into two parts:
+- origin = Name of your remote repository.
+- main = Branch on that remote repository.
+Therefore:
+
+origin/main = Your local record of the remote repository's main branch.
+
+Example:
+git branch -a
+
+
+Output:
+* main
+  feature
+  remotes/origin/main
+  remotes/origin/feature
+
+
+Here:
+- main = Local branch.
+- remotes/origin/main = Remote-tracking branch.
+Important: origin/main does not automatically update every time someone pushes code to GitHub.
+
+To update your remote-tracking information:
+git fetch origin
+
+
+This downloads remote changes and updates your remote-tracking references without merging them into your current branch.
+4. What is HEAD?
+HEAD is a special pointer that tells Git where you are currently positioned.
+
+Usually, HEAD points to the branch you are currently working on.
+
+Example:
+A → B → C → D
+            ↑
+           main
+            ↑
+           HEAD
+
+
+Here:
+- main points to commit D.
+- HEAD points to main.
+- You are currently working on the main branch.
+Check HEAD using:
+cat .git/HEAD
+
+
+On Windows PowerShell, you can also use:
+Get-Content .git/HEAD
+
+
+Output:
+ref: refs/heads/main
+
+
+This means HEAD points to your local main branch.
+What happens when you switch branches?
+Suppose you have two branches:
+          C → D  (main)
+         /
+A → B
+         \
+          E → F  (feature)
+
+
+When you execute:
+git switch feature
+
+
+HEAD moves to the feature branch.
+A → B → E → F
+              ↑
+           feature
+              ↑
+             HEAD
+
+
+Your current branch has changed, but your previous main branch still exists.
+5. What is HEAD~1?
+HEAD~1 means one first-parent commit before the current HEAD.
+
+Let's understand with an example:
+A → B → C → D → E
+                ↑
+               HEAD
+
+
+Now:
+Expression	Refers to
+HEAD	E (current commit)
+HEAD~1	D (one commit before)
+HEAD~2	C (two commits before)
+HEAD~3	B (three commits before)
+HEAD~4	A (four commits before)
+
+Think of it like going backward through your commit history.
+
+Example commands:
+git show HEAD
+
+
+Displays the current commit details.
+git show HEAD~1
+
+
+Displays the previous commit details.
+git log --oneline
+
+
+Displays commit history in a short format.
+
+Example output:
+e5f6a7b Added login page
+c3d4e5f Fixed navbar
+a1b2c3d Initial project setup
+
+
+If the latest commit is e5f6a7b, then HEAD~1 refers to c3d4e5d's commit (the second entry conceptually; the actual hash shown is c3d4e5f).
+6. Difference between all four
+Term	Meaning
+main	Local branch
+origin/main	Remote-tracking branch
+HEAD	Current position in Git
+HEAD~1	First-parent commit before HEAD
