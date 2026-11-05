@@ -1,4 +1,5 @@
-
+Author : Abu Jubair Md Sahil
+Resource : ChatGPT 
 # Git & GitHub – Lesson 1
 
 ## 1. What is Git?
